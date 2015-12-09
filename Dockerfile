@@ -24,9 +24,10 @@ RUN sed -i Gruntfile.js -e 's/port: port,/port: port, hostname: "",/'
 RUN grunt
 
 COPY index.html /reveal.js/
-COPY title.js /reveal.js/plugin/
 COPY test_slides.md /reveal.js/md/slides.md
-COPY pandoc-template-revealjs.html /reveal.js/pandoc-template-revealjs.html
+COPY default.revealjs /usr/share/pandoc/data/templates/default.revealjs
+
+RUN mkdir ~/.pandoc && ln -s /reveal.js ~/.pandoc/reveal.js
 
 EXPOSE 8000
 EXPOSE 35729
