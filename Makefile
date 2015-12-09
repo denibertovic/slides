@@ -8,7 +8,6 @@ REVEALJS_URL=/reveal.js
 PANDOC_CMD="pandoc -5 --slide-level=1 -t revealjs --highlight-style=zenburn -f markdown_github+mmd_title_block+backtick_code_blocks --standalone --self-contained --section-divs --variable transition=${REVEALJS_TRANSITION} --variable revealjs-url=${REVEALJS_URL} --variable theme=${REVEALJS_THEME} md/slides.md -o out/index.html"
 
 .PHONY: build push run clean clean-html present
-#run-static
 
 build:
 	@docker build -t $(IMAGE_NAME) .
@@ -23,14 +22,6 @@ run: clean
 		-p 35729:35729 \
 		--name presentation \
 	$(IMAGE_NAME)
-
-# run-static: clean
-# 	@docker run -d \
-# 		-v `pwd`/md:/reveal.js/md \
-# 		-p 8000:8000 \
-# 		-p 35729:35729 \
-# 		--name presentation \
-# 	$(IMAGE_NAME) /bin/bash -c '"${PANDOC_CMD}" && cp out/index.html index.html && grunt serve'
 
 bash:
 	@docker run -it \
