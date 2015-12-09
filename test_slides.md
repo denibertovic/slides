@@ -1,18 +1,33 @@
-# Reveal JS
-<br/>
+## Reveal JS
 
----
+Deni Bertovic
+
 
 ## A slide
 
--
 
 ## A slide below with a list
+
  - A thing
- - Another thing 
+ - Another thing
  - Three things
 
----
-<!-- .slide: data-background="#555555" -->
-## A slide with a different background
+## Another slide
+
+ * Bla
+ * Bla
+
+## Slide with code
+
+    import logging
+
+    logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.DEBUG)
+    log = logging.getLogger(__name__)
+    log.setLevel(logging.DEBUG)
+
+    try:
+        1/0
+    except:
+        log.exception('DINAMOOOOOO')
+
 
