@@ -39,8 +39,8 @@ RUN grunt
 
 COPY index.html /opt/slides/reveal.js/
 COPY test_slides.md /opt/slides/reveal.js/md/slides.md
-COPY templates/default.revealjs /usr/share/pandoc/data/templates/default.revealjs
-COPY templates/default.latex /usr/share/pandoc/data/templates/default.latex
+COPY pandoc_templates/default.revealjs /usr/share/pandoc/data/templates/default.revealjs
+COPY pandoc_templates/default.latex /usr/share/pandoc/data/templates/default.latex
 
 EXPOSE 8000
 EXPOSE 35729
