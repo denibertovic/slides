@@ -20,6 +20,7 @@ push:
 	@docker push $(IMAGE_NAME)
 
 new-slides:
+	@if test -z "$$NEW_SLIDES_PATH"; then echo "NEW_SLIDES_PATH is not defined. Please run make NEW_SLIDES_PATH=/path/to/slides new-slides"; exit 1; fi;
 	@mkdir -p $(NEW_SLIDES_PATH)
 	@cp -r new_slides_project/* $(NEW_SLIDES_PATH) && cp -r md $(NEW_SLIDES_PATH)
 
