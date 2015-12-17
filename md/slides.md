@@ -1,8 +1,8 @@
-Title:   Dinamo Title
+Title:   Presentation Title
 Author:  Deni Bertovic
 Date:    December 09, 2015
-Comment: This is a sample mmd title block, with
-         a field spanning multiple lines.
+Comment: Sample comment
+footer:  Sample Footer
 
 
 
@@ -15,6 +15,8 @@ Some text bla
 ## A slide
 
 Some text bla bla
+
+![Sample Image](md/img/sample_image.png)
 
 ---
 
@@ -44,7 +46,7 @@ log.setLevel(logging.DEBUG)
 try:
     1/0
 except:
-    log.exception('DINAMOOOOOO')
+    log.exception('Some Exception')
 
 ```
 

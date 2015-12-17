@@ -38,7 +38,7 @@ RUN sed -i Gruntfile.js -e 's/port: port,/port: port, hostname: "",/'
 RUN grunt
 
 COPY index.html /opt/slides/reveal.js/
-COPY test_slides.md /opt/slides/reveal.js/md/slides.md
+COPY md /opt/slides/reveal.js/md
 COPY pandoc_templates/default.revealjs /usr/share/pandoc/data/templates/default.revealjs
 COPY pandoc_templates/default.latex /usr/share/pandoc/data/templates/default.latex
 
