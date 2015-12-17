@@ -7,7 +7,11 @@ MAINTAINER Deni Bertovic <deni@denibertovic.com>
 ENV REVEALJS_VERSION 3.2.0
 
 RUN apt-get update && apt-get -y --no-install-suggests install \
-    pandoc
+    pandoc \
+    texlive-fonts-recommended \
+    texlive-latex-base \
+    texlive-latex-extra \
+    texlive-latex-recommended
 
 RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
 RUN wget "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture)" \
@@ -35,7 +39,8 @@ RUN grunt
 
 COPY index.html /opt/slides/reveal.js/
 COPY test_slides.md /opt/slides/reveal.js/md/slides.md
-COPY default.revealjs /usr/share/pandoc/data/templates/default.revealjs
+COPY templates/default.revealjs /usr/share/pandoc/data/templates/default.revealjs
+COPY templates/default.latex /usr/share/pandoc/data/templates/default.latex
 
 EXPOSE 8000
 EXPOSE 35729
