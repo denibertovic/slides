@@ -15,39 +15,7 @@ build:
 	@docker build -t $(IMAGE_NAME) .
 
 push:
-	@echo "Not implemented yet."
+	@docker push $(IMAGE_NAME)
 
-run: clean
-	@docker run -d \
-		-e LOCAL_USER_ID=${LOCAL_USER_ID} \
-		-v `pwd`/md:/opt/slides/reveal.js/md \
-		-p 8000:8000 \
-		-p 35729:35729 \
-		--name presentation \
-	$(IMAGE_NAME)
-
-bash:
-	@docker run -it \
-		-e LOCAL_USER_ID=${LOCAL_USER_ID} \
- 		-v `pwd`/out:/opt/slides/reveal.js/out \
-		-v `pwd`/md:/opt/slides/reveal.js/md \
-	$(IMAGE_NAME) /bin/bash
-
-clean: clean-html
-	@-docker rm -v -f presentation
-
-clean-html:
-	@rm -rf out
-
-html: clean
-	@docker run -d \
-		-e LOCAL_USER_ID=${LOCAL_USER_ID} \
- 		-v `pwd`/md:/opt/slides/reveal.js/md \
- 		-v `pwd`/out:/opt/slides/reveal.js/out \
-		--name presentation \
-	$(IMAGE_NAME) /bin/bash -c ${PANDOC_CMD}
-	@echo "SUCCESS! Check md/index.html"
-
-present:
-	@google-chrome --incognito out/index.html
-
+new-slides:
+	@mkdir $(NEW_SLIDES_PATH)
