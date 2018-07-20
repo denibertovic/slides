@@ -4,8 +4,6 @@ Date:    December 09, 2015
 Comment: Sample comment
 footer:  Sample Footer
 
-
-
 ## Reveal JS
 
 Some text bla
@@ -37,16 +35,17 @@ Some text bla bla
 
 ## Slide with code
 
-```python
-import logging
-logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.DEBUG)
-log = logging.getLogger(__name__)
-log.setLevel(logging.DEBUG)
+```haskell
 
-try:
-    1/0
-except:
-    log.exception('Some Exception')
+import qualified Data.ByteString.Lazy.Char8 as L8
+import           Network.HTTP.Simple
 
+main :: IO ()
+main = do
+    response <- httpLBS "http://httpbin.org/get"
+
+    putStrLn $ "The status code was: " ++
+               show (getResponseStatusCode response)
+    print $ getResponseHeader "Content-Type" response
+    L8.putStrLn $ getResponseBody response
 ```
-
