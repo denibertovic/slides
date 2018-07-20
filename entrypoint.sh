@@ -2,16 +2,15 @@
 
 # Add local user
 # Either use the LOCAL_USER_ID if passed in at runtime or we
-# fallback to uid 9001
+# fallback to uid 9001 --> because it's OVER NINE THOUSAAAAAND! :D
 USER_ID=${LOCAL_USER_ID:-9001}
 echo "Starting with UID : $USER_ID"
 # Add docker group to default user
 useradd --shell /bin/bash -u $USER_ID -c "" -m user
 export HOME=/home/user
 
-mkdir /home/user/.pandoc && ln -s /opt/slides/reveal.js /home/user/.pandoc/reveal.js
-chown user:user /home/user/.pandoc
-chown user:user /opt/slides -R
+chown user:user /opt/slides/reveal.js/out -R
+chown user:user /opt/slides/reveal.js/md -R
 
 # Source default env vars needed it there are any
 if [ -d '/opt/slides/etc/default'  ]; then
@@ -28,5 +27,4 @@ if [ -d /opt/slides/entrypoint.d ]; then
     done
 fi
 
-exec /usr/local/bin/gosu user "$@"
-
+exec /usr/local/sbin/pid1 -u user -g user "$@"
