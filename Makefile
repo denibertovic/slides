@@ -1,26 +1,32 @@
+.PHONY: build push
+
+.DEFAULT_GOAL = help
+
 IMAGE_NAME='denibertovic/slides'
 
+require-%:
+	@ if [ "${${*}}" = "" ]; then \
+		echo "ERROR: Environment variable not set: \"$*\""; \
+		exit 1; \
+	fi
 
-REVEALJS_TRANSITION=linear
-REVEALJS_THEME=black
-REVEALJS_URL=/opt/slides/reveal.js
-
-PANDOC_CMD="pandoc -5 --slide-level=1 -t revealjs --highlight-style=zenburn -f markdown_github+mmd_title_block+backtick_code_blocks --standalone --self-contained --section-divs --variable transition=${REVEALJS_TRANSITION} --variable revealjs-url=${REVEALJS_URL} --variable theme=${REVEALJS_THEME} md/slides.md -o out/index.html"
-
-.PHONY: build push new-slides
-
-LOCAL_USER_ID ?= $(shell id -u $$USER)
-
-include new_slides_project/Makefile
-
-build:
+## Build docker image
+build: require-IMAGE_NAME
 	@docker build -t $(IMAGE_NAME) .
 
-push:
+## Push docker image
+push: require-IMAGE_NAME
 	@docker push $(IMAGE_NAME)
 
-new-slides:
-	@if test -z "$$NEW_SLIDES_PATH"; then echo "NEW_SLIDES_PATH is not defined. Please run make NEW_SLIDES_PATH=/path/to/slides new-slides"; exit 1; fi;
-	@mkdir -p $(NEW_SLIDES_PATH)
-	@cp -r new_slides_project/* $(NEW_SLIDES_PATH) && cp -r md $(NEW_SLIDES_PATH)
-
+## Show help screen.
+help:
+	@echo "Please use \`make <target>' where <target> is one of\n\n"
+	@awk '/^[a-zA-Z\-\_0-9]+:/ { \
+		helpMessage = match(lastLine, /^## (.*)/); \
+		if (helpMessage) { \
+			helpCommand = substr($$1, 0, index($$1, ":")-1); \
+			helpMessage = substr(lastLine, RSTART + 3, RLENGTH); \
+			printf "%-30s %s\n", helpCommand, helpMessage; \
+		} \
+	} \
+	{ lastLine = $$0 }' $(MAKEFILE_LIST)
