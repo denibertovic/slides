@@ -1,7 +1,7 @@
 IMAGE_NAME='denibertovic/slides'
 
 REVEALJS_TRANSITION?=linear
-REVEALJS_THEME?=black
+REVEALJS_THEME?=solarized
 REVEALJS_URL=/opt/slides/reveal.js
 
 PANDOC_CMD_PRESENT="pandoc -5 --slide-level=1 -t revealjs --highlight-style=zenburn -f markdown_github+mmd_title_block+backtick_code_blocks --standalone --self-contained --section-divs --variable transition=${REVEALJS_TRANSITION} --variable revealjs-url=${REVEALJS_URL} --variable theme=${REVEALJS_THEME} md/slides.md -o out/index.html"
